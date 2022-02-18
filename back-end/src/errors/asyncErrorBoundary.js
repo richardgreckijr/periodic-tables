@@ -1,3 +1,10 @@
+/**
+ * 
+ * @param {*} delegate 
+ * @param {*} defaultStatus 
+ * @returns a promise; handles asynchronous code
+ */
+
 function asyncErrorBoundary(delegate, defaultStatus) {
   return (request, response, next) => {
     Promise.resolve()

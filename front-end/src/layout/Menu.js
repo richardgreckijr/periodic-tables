@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 
 /**
@@ -21,7 +20,9 @@ function Menu() {
           </div>
         </Link>
         <hr className="sidebar-divider my-0" />
-        <ul className="nav navbar-nav text-light" id="accordionSidebar">
+        <ul
+          className="nav navbar-nav text-light"
+          id="accordionSidebar">
           <li className="nav-item">
             <Link className="nav-link" to="/dashboard">
               <span className="oi oi-dashboard" />
@@ -29,19 +30,25 @@ function Menu() {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/search">
+            <Link
+              className="nav-link"
+              to="/search">
               <span className="oi oi-magnifying-glass" />
               &nbsp;Search
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/reservations/new">
+            <Link
+              className="nav-link"
+              to="/reservations/new">
               <span className="oi oi-plus" />
               &nbsp;New Reservation
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/tables/new">
+            <Link
+              className="nav-link"
+              to="/tables/new">
               <span className="oi oi-layers" />
               &nbsp;New Table
             </Link>

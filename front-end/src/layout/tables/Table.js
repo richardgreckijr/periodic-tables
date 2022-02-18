@@ -43,7 +43,7 @@ export default function Table({ table, index }) {
 
     const userRes = reservations.find(res => Number(table.reservation_id) === Number(res.reservation_id));
     return (
-        <div className='bg-success m-4 p-5 rounded'>
+        <div className='bg-secondary m-4 p-5 rounded'>
             <div
                 className='text-center text-white'
                 key={index}>
@@ -60,7 +60,7 @@ export default function Table({ table, index }) {
                             type='submit' data-table-id-finish={`${table.table_id}`}
                             onClick={() => handleFinish(table.table_id)}
                         >Finish</button>
-                    )};
+                    )}
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 function Menu() {
   return (
+
     <nav className="navbar navbar-dark align-items-start p-0">
       <div className="container-fluid d-flex flex-column p-0">
         <Link
@@ -54,16 +55,9 @@ function Menu() {
             </Link>
           </li>
         </ul>
-        <div className="text-center d-none d-md-inline">
-          <button
-            className="btn rounded-circle border-0"
-            id="sidebarToggle"
-            type="button"
-          />
-        </div>
       </div>
-    </nav>
+    </nav >
   );
-}
+};
 
 export default Menu;

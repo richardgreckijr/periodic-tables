@@ -1,7 +1,11 @@
+/**
+ * Middleware to check properties of the request
+ * @param  {...any} properties 
+ * @returns Error message/status if missing properties
+ */
 function hasProperties(...properties) {
     return function (req, res, next) {
         const { data = {} } = req.body;
-
         try {
             properties.forEach((property) => {
                 if (!data[property]) {
@@ -15,6 +19,6 @@ function hasProperties(...properties) {
             next(error);
         }
     };
-}
+};
 
 module.exports = hasProperties;

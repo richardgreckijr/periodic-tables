@@ -1,6 +1,6 @@
-const service = require('./reservations.service')
-const asyncErrorBoundary = require('../errors/asyncErrorBoundary')
-const hasProperties = require('../errors/hasProperties')
+const service = require('./reservations.service');
+const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
+const hasProperties = require('../errors/hasProperties');
 
 const hasProps = hasProperties(
   'first_name',
@@ -41,19 +41,21 @@ function hasOnlyValidProperties(req, res, next) {
 };
 
 async function list(req, res) {
-  const { date } = req.query
-  const { mobile_number } = req.query
-  let data
-
+  const { date, viewDate, mobile_number } = req.query;
   if (date) {
-    data = await service.listByDate(date)
+    const data = await service.listByDate(date);
+    res.json({ data });
+  } else if (viewDate) {
+    const data = await service.listByDate(viewDate);
+    res.json({ data });
   } else if (mobile_number) {
-    data = await service.search(mobile_number)
+    const data = await service.search(mobile_number);
+    res.json({ data });
   } else {
-    data = await service.list()
+    const data = await service.list();
+    res.json({ data });
   }
-  res.json({ data });
-};
+}
 
 function hasData(req, res, next) {
   const data = req.body.data
@@ -77,10 +79,25 @@ function hasValidPeople(req, res, next) {
   next()
 };
 
+function resMustBeInPast(req, res, next) {
+  const { reservation_date, reservation_time } = req.body.data;
+  const today = Date.now();
+  const newReservationDate = new Date(
+    `${reservation_date} ${reservation_time}`
+  ).valueOf();
+  if (newReservationDate > today) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: `reservation_time must be in the past. Please select a date in the future.`,
+  });
+};
+
 function hasValidDate(req, res, next) {
-  const { data: { reservation_date, reservation_time } } = req.body
+  const { data: { reservation_date, reservation_time } } = req.body // UTC
   const trimmedDate = reservation_date.substring(0, 10)
-  const dateInput = new Date(`${trimmedDate} ${reservation_time}`)
+  const dateInput = new Date(`${trimmedDate} ${reservation_time}`) // UTC
   const today = new Date()
   const day = dayjs(dateInput).day()
   const dateFormat = /\d\d\d\d-\d\d-\d\d/
@@ -105,12 +122,6 @@ function hasValidDate(req, res, next) {
   }
   if (res.locals.reservation) {
     return next()
-  }
-  if (dateInput < today) {
-    return next({
-      status: 400,
-      message: `Reservations can't be in the past. Please pick a future date.`
-    })
   }
   next()
 };
@@ -242,6 +253,7 @@ module.exports = {
     hasProps,
     checkBookedStatus,
     hasValidDate,
+    resMustBeInPast,
     hasValidTime,
     hasValidPeople,
     asyncErrorBoundary(create)

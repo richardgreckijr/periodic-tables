@@ -1,5 +1,5 @@
 /**
- * 
+ * Error handling for bad url req
  * @param {*} req 
  * @param {*} res 
  * @param {*} next 

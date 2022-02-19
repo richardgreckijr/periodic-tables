@@ -35,9 +35,14 @@ export default function SeatReservation() {
         event.preventDefault();
         const abortController = new AbortController();
         updateTable(reservationId, Number(selectOptions.table_id), abortController.signal)
-            .then(() => history.push('/dashboard'))
-            .catch(setError)
-        return () => abortController.abort()
+            .then((res) => {
+                const newTables = tables.map((table) => {
+                    return table.table_id === res.table_id ? res : table;
+                })
+                setTables(newTables);
+                history.push('/dashboard')
+            }).catch(setError);
+        return () => abortController.abort();
     };
 
     return (

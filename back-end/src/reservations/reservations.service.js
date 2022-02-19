@@ -7,11 +7,13 @@ function list() {
 };
 
 function listByDate(reservation_date) {
-    return knex('reservations')
-        .select('*')
+    reservation_date = new Date(reservation_date).toJSON().substring(0, 10);
+    return knex("reservations")
+        .select("*")
         .where({ reservation_date })
-        .whereNot({ status: 'finished' })
-        .orderBy('reservation_time')
+        .whereNot({ status: "finished" })
+        .whereNot({ status: "cancelled" })
+        .orderBy("reservation_time");
 };
 
 function read(reservation_id) {

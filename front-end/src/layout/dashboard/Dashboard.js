@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { listReservations, listTables } from '../../utils/api';
-import { previous, next, today } from '../../utils/date-time'
+import { previous, next, today } from '../../utils/date-time';
 import { useHistory } from 'react-router';
 
 import ErrorAlert from '../errorHandling/ErrorAlert';
@@ -16,16 +16,16 @@ import TableList from '../tables/TableList';
  */
 
 export default function Dashboard() {
-  const query = useQuery()
-  const history = useHistory()
-  const dayjs = require('dayjs')
-  const [tables, setTables] = useState([])
+  const query = useQuery();
+  const history = useHistory();
+  const dayjs = require('dayjs');
+  const [tables, setTables] = useState([]);
   const [error, setError] = useState(null);
   const [reservations, setReservations] = useState([]);
-  const [date, setDate] = useState(query.get('date') || today())
+  const [date, setDate] = useState(query.get('date') || today());
 
-  useEffect(loadDashboard, [date])
-  useEffect(loadTables, [])
+  useEffect(loadDashboard, [date]);
+  useEffect(loadTables, []);
 
   function loadTables() {
     const abortController = new AbortController();
@@ -33,7 +33,7 @@ export default function Dashboard() {
       .then(setTables)
       .catch(setError);
     return () => abortController.abort();
-  }
+  };
 
   function loadDashboard() {
     const abortController = new AbortController();
@@ -41,20 +41,20 @@ export default function Dashboard() {
       .then(setReservations)
       .catch(setError);
     return () => abortController.abort();
-  }
+  };
 
   function handleDateChange({ target }) {
-    setDate(target.value)
-  }
+    setDate(target.value);
+  };
 
   function handlePreviousDate() {
     setDate(previous(date))
     history.push(`dashboard?date=${previous(date)}`)
-  }
+  };
   function handleNextDate() {
     setDate(next(date))
     history.push(`dashboard?date=${next(date)}`)
-  }
+  };
 
   return (
     <main>
@@ -107,5 +107,5 @@ export default function Dashboard() {
       <TableList tables={tables} />
     </main>
   );
-}
+};
 

@@ -68,7 +68,7 @@ export default function EditReservation() {
             setError(error);
         }
         return () => controller.abort();
-    }
+    };
 
     return (
         <div className='m-4'>
@@ -83,4 +83,4 @@ export default function EditReservation() {
             />
         </div>
     )
-}
+};

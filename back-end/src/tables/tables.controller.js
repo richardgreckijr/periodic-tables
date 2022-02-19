@@ -158,7 +158,7 @@ async function destroy(req, res) {
     const { table } = res.locals
     await service.deleteTable(table_id, table.reservation_id)
     res.status(200).json({})
-}
+};
 
 module.exports = {
     list: asyncErrorBoundary(list),

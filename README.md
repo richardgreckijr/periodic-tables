@@ -2,6 +2,7 @@
 Full Stack Application: Mock-up designed to handle for a restaurant seating and reservations.
 ## Live Demo
 [Deployment](https://periodic-tablesfe-62i98qolt-richardgreckijr.vercel.app/dashboard)
+[Original repo](https://github.com/Thinkful-Ed/starter-restaurant-reservation)
 ## Stack 
 - Javascript
 - HTML
